@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Floating Bubbles</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
-  <script defer src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multiverse Bubble Wall</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-  <h1>What's your favorite song?</h1>
-  <input type="text" id="answer" placeholder="Type your answer here..." />
-  <button onclick="submitAnswer()">Submit</button>
-  <div id="bubble-container"></div>
+  <div id="welcome-screen">
+    <h1>Welcome to the Multiverse</h1>
+    <p id="click-text" style="display: none;">Click to go ahead</p>
+  </div>
+
+  <div id="main-app" style="display: none;">
+    <h1>So, what's your career in this universe?</h1>
+    <input type="text" id="answer" placeholder="Type your answer..." />
+    <button id="submit">Submit</button>
+    <div id="bubble-container"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
