@@ -3,24 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Multiverse Bubble Wall</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <title>Floating Bubbles</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      font-family: sans-serif;
+      overflow: hidden;
+      background: url('Asset 1.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: white;
+    }
+
+    .center input, .center button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .center button {
+      background-color: teal;
+      color: white;
+      cursor: pointer;
+    }
+
+    .bubble {
+      position: absolute;
+      padding: 15px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-weight: bold;
+      border: 2px solid white;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
-  <div id="welcome-screen">
-    <h1>Welcome to the Multiverse</h1>
-    <p id="click-text" style="display: none;">Click to go ahead</p>
+  <div id="intro" class="center">
+    <h2>Enter your details</h2>
+    <input type="text" id="name" placeholder="Your Name" />
+    <input type="text" id="location" placeholder="Your Location" />
+    <input type="text" id="answer" placeholder="Your Answer" />
+    <button onclick="submitAnswer()">Click to Continue</button>
   </div>
 
-  <div id="main-app" style="display: none;">
-    <h1>So, what's your career in this universe?</h1>
-    <input type="text" id="answer" placeholder="Type your answer..." />
-    <button id="submit">Submit</button>
-    <div id="bubble-container"></div>
-  </div>
+  <script>
+    function createBubble(text) {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.style.left = Math.random() * 90 + '%';
+      bubble.style.top = '100vh';
+      bubble.textContent = text;
+      document.body.appendChild(bubble);
 
-  <script src="script.js"></script>
+      setTimeout(() => {
+        document.body.removeChild(bubble);
+      }, 15000);
+    }
+
+    function submitAnswer() {
+      const name = document.getElementById('name').value;
+      const location = document.getElementById('location').value;
+      const answer = document.getElementById('answer').value;
+      if (!name || !location || !answer) return alert('Fill all fields!');
+
+      document.getElementById('intro').style.display = 'none';
+      createBubble(`${answer} — ${name}, ${location}`);
+
+      // Simulate others' bubbles for now
+      setInterval(() => {
+        const samples = [
+          "Hello — Aanya, Mumbai",
+          "Peace — Sam, Berlin",
+          "Chai — Ravi, Delhi"
+        ];
+        const random = samples[Math.floor(Math.random() * samples.length)];
+        createBubble(random);
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
